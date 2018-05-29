@@ -5,7 +5,7 @@ const LoginUsers = [
     username: 'admin',
     password: '123456',
     avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
-    name: '张某某'
+    name: 'Mcqueen'
   }
 ];
 
@@ -25,30 +25,39 @@ for (let i = 0; i < 86; i++) {
 const Blogs = [
     {
       id: 0,
-        title: '理解 JavaScript 的 async/await',
-        detail: '一般来说，都认为 await 是在等待一个 async 函数完成。不过按语法说明，await 等待的是一个表达式，这个表达式的计算结果是 Promise 对象或者其它值（换句话说，就是没有特殊限定）。\n' +
-        '\n' +
-        '因为 async 函数返回一个 Promise 对象，所以 await 可以用于等待一个 async 函数的返回值——这也可以说是 await 在等 async 函数，但要清楚，它等的实际是一个返回值。注意到 await 不仅仅用于等 Promise 对象，它可以等任意表达式的结果，所以，await 后面实际是可以接普通函数调用或者直接量的。所以下面这个示例完全可以正确运行',
+        title: '安卓开发基础',
+        detail: '安卓常用开发基础详解',
         imgUrl: '',
-        author: '韦德'
+        author: '韦德',
+        publishState: 0,
+        insertTime: new Date(),
     },
     {
-        id: 0,
-        title: '理解 JavaScript 的 async/await',
-        detail: '一般来说，都认为 await 是在等待一个 async 函数完成。不过按语法说明，await 等待的是一个表达式，这个表达式的计算结果是 Promise 对象或者其它值（换句话说，就是没有特殊限定）。\n' +
-        '\n' +
-        '因为 async 函数返回一个 Promise 对象，所以 await 可以用于等待一个 async 函数的返回值——这也可以说是 await 在等 async 函数，但要清楚，它等的实际是一个返回值。注意到 await 不仅仅用于等 Promise 对象，它可以等任意表达式的结果，所以，await 后面实际是可以接普通函数调用或者直接量的。所以下面这个示例完全可以正确运行',
+        id: 1,
+        title: 'recyclerview的基本使用',
+        detail: 'recyclerview去掉listview',
         imgUrl: '',
-        author: '韦德'
+        author: 'john',
+        publishState: 1,
+        insertTime: new Date(),
     },
     {
-        id: 0,
+        id: 2,
         title: '理解 JavaScript 的 async/await',
-        detail: '一般来说，都认为 await 是在等待一个 async 函数完成。不过按语法说明，await 等待的是一个表达式，这个表达式的计算结果是 Promise 对象或者其它值（换句话说，就是没有特殊限定）。\n' +
-        '\n' +
-        '因为 async 函数返回一个 Promise 对象，所以 await 可以用于等待一个 async 函数的返回值——这也可以说是 await 在等 async 函数，但要清楚，它等的实际是一个返回值。注意到 await 不仅仅用于等 Promise 对象，它可以等任意表达式的结果，所以，await 后面实际是可以接普通函数调用或者直接量的。所以下面这个示例完全可以正确运行',
+        detail: '一般来说，都认为 await 是在等待',
         imgUrl: '',
-        author: '韦德'
+        author: 'lily',
+        publishState: 0,
+        insertTime: new Date(),
+    },
+    {
+        id: 3,
+        title: 'vue开发入门',
+        detail: 'vue入门详解',
+        imgUrl: '',
+        author: 'mike',
+        publishState: 0,
+        insertTime: new Date(),
     }
 ];
 

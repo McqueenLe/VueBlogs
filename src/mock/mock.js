@@ -153,18 +153,31 @@ export default {
 
     mock.onGet('/blogs').reply(config => {
       debugger;
-      let {page, name} = config.params;
-      let total = _Blogs.length;
+      let {page, author, publishState} = config.params;
+      let mockBlogs = _Blogs.filter(blog => {
+        if(author && blog.author.indexOf(author) == -1) {
+          return false;
+        }
+        if(publishState && blog.publishState != publishState) {
+          return false;
+        }
+        return true;
+      });
+      let total = mockBlogs.length;
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
               code: 200,
-              blogs: _Blogs,
+              blogs: mockBlogs,
               total: total,
               msg: '获取博客列表成功'
           }]);
         }, 500);
       });
     });
+
+    mock.onPost('/publish').reply(config => {
+
+    })
   }
 };

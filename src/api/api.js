@@ -17,3 +17,5 @@ export const editUser = params => { return axios.get(`${base}/user/edit`, { para
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 
 export const getBlogList = params => { return axios.get(`${base}/blogs`, { params: params});};
+
+export const batchPublish = params => { return axios.get(`${base}/publish`, { params: params});};
