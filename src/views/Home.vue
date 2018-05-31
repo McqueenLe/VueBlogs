@@ -4,11 +4,22 @@
 			<el-col :span="10" class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
 				{{collapsed?'':sysName}}
 			</el-col>
-			<el-col :span="10">
+
+			<el-col :span="1">
 				<div class="tools" @click.prevent="collapse">
 					<i class="fa fa-align-justify"></i>
 				</div>
 			</el-col>
+
+			<el-col :span="10">
+				<!--<strong class="title">{{$route.name}}</strong>-->
+				<el-breadcrumb separator="/">
+					<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+						{{ item.name }}
+					</el-breadcrumb-item>
+				</el-breadcrumb>
+			</el-col>
+
 			<el-col :span="4" class="userinfo">
 				<el-dropdown trigger="hover">
 					<span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
@@ -20,6 +31,7 @@
 				</el-dropdown>
 			</el-col>
 		</el-col>
+
 		<el-col :span="24" class="main">
 			<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
 				<!--导航菜单-->
@@ -52,14 +64,15 @@
 			</aside>
 			<section class="content-container">
 				<div class="grid-content bg-purple-light">
-					<el-col :span="24" class="breadcrumb-container">
-						<strong class="title">{{$route.name}}</strong>
-						<el-breadcrumb separator="/" class="breadcrumb-inner">
-							<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
-								{{ item.name }}
-							</el-breadcrumb-item>
-						</el-breadcrumb>
-					</el-col>
+					<!--<el-col :span="24" class="breadcrumb-container">-->
+						<!--<strong class="title">{{$route.name}}</strong>-->
+						<!--<el-breadcrumb separator="/" class="breadcrumb-inner">-->
+							<!--<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">-->
+								<!--{{ item.name }}-->
+							<!--</el-breadcrumb-item>-->
+						<!--</el-breadcrumb>-->
+					<!--</el-col>-->
+
 					<el-col :span="24" class="content-wrapper">
 						<transition name="fade" mode="out-in">
 							<router-view></router-view>
@@ -150,7 +163,14 @@
 			height: 60px;
 			line-height: 60px;
 			background: $color-primary;
-			color:#fff;
+			color:white;
+			.el-breadcrumb {
+				height:60px;
+				line-height: 60px;
+				.el-breadcrumb-item {
+					color: white;
+				}
+			}
 			.userinfo {
 				text-align: right;
 				padding-right: 35px;
@@ -249,17 +269,6 @@
 				// left: 230px;
 				overflow-y: scroll;
 				padding: 20px;
-				.breadcrumb-container {
-					//margin-bottom: 15px;
-					.title {
-						width: 200px;
-						float: left;
-						color: #475669;
-					}
-					.breadcrumb-inner {
-						float: right;
-					}
-				}
 				.content-wrapper {
 					background-color: #fff;
 					box-sizing: border-box;

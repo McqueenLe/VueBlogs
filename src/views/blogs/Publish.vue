@@ -7,7 +7,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button>发布</el-button>
+                    <el-button @click="publish">发布</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
@@ -65,7 +65,9 @@
                         this.listLoading = true;
                         let params = { ids: ids};
                         batchPublish(params).then((res) => {
-
+                            this.listLoading = false;
+                            this.blogs = res.data.blogs;
+                            this.$message(res.data.msg);
                         })
                     })
                 }

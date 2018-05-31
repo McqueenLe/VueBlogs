@@ -152,7 +152,6 @@ export default {
     });
 
     mock.onGet('/blogs').reply(config => {
-      debugger;
       let {page, author, publishState} = config.params;
       let mockBlogs = _Blogs.filter(blog => {
         if(author && blog.author.indexOf(author) == -1) {
@@ -176,8 +175,28 @@ export default {
       });
     });
 
-    mock.onPost('/publish').reply(config => {
-
-    })
+    mock.onGet('/publish').reply(config => {
+      debugger;
+        let { ids } = config.params;
+        ids = ids.split(',');
+        _Blogs.some(blog => {
+            if(ids.indexOf(blog.id.toString()) != -1) {
+                debugger;
+                blog.publishState = 1;
+            }
+        });
+        _Blogs = _Blogs.filter((blog) => {
+          return blog.publishState == 0;
+        });
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve([200, {
+              code: 200,
+              blogs: _Blogs,
+              msg: '发布成功'
+            }]);
+          }, 500);
+        });
+    });
   }
 };

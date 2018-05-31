@@ -18,7 +18,8 @@
 
             <el-input clearable type="text" v-model="blog.title" placeholder="请输入标题"></el-input>
 
-            <el-input type="textarea" style="margin-top: 20px" v-model="blog.detail" placeholder="请输入正文" :rows="10"></el-input>
+            <!--<el-input type="textarea" style="margin-top: 20px" v-model="blog.detail" placeholder="请输入正文" :rows="10"></el-input>-->
+            <editor :value="富文本编辑器" ></editor>
 
             <el-input type="text" v-model="blog.author" placeholder="请输入作者"></el-input>
 
@@ -30,6 +31,7 @@
 </template>
 
 <script>
+    import editor from '../common/Editor'
     export default {
         name: "add-blog",
         data() {
@@ -43,6 +45,9 @@
                     author: ''
                 }
             }
+        },
+        components: {
+            'editor': editor
         },
         methods: {
             /** 图片上传校验*/
@@ -79,6 +84,7 @@
 <style scoped>
     .el-input {
         margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     .el-button {
