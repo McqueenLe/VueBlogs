@@ -1,8 +1,26 @@
 import axios from 'axios';
+import fetch from './fetch'
 
-let base = '';
+let base = 'http://localhost:8089';
 
-export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
+/**
+ * 登录接口
+ * @param username
+ * @param password
+ * @returns {*}
+ */
+export function login(username, password) {
+    return fetch({
+        url: '/api/flow/auth/login',
+        method: 'post',
+        data: {
+            'adminName': username,
+            'password': password
+        }
+    })
+}
+
+export const requestLogin = params => { return axios.post('http://192.168.0.3:8089/api/flow/auth/login', params).then(res => res.data); };
 
 export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
 

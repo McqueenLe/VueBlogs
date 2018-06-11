@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import { requestLogin } from '../api/api';
+  import { login, requestLogin } from '../api/api';
   //import NProgress from 'nprogress'
   export default {
     data() {
@@ -59,20 +59,31 @@
             this.logining = true;
             //NProgress.start();
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
-            requestLogin(loginParams).then(data => {
-              this.logining = false;
-              //NProgress.done();
-              let { msg, code, user } = data;
-              if (code !== 200) {
-                this.$message({
-                  message: msg,
-                  type: 'error'
-                });
-              } else {
-                sessionStorage.setItem('user', JSON.stringify(user));
-                this.$router.push({ path: '/table' });
-              }
-            });
+            // requestLogin(loginParams).then(data => {
+            //     debugger;
+            //   this.logining = false;
+            //   //NProgress.done();
+            //   let { msg, code, user } = data;
+            //   if (code !== 200) {
+            //     this.$message({
+            //       message: msg,
+            //       type: 'error'
+            //     });
+            //   } else {
+            //     sessionStorage.setItem('user', JSON.stringify(user));
+            //     this.$router.push({ path: '/table' });
+            //   }
+            // });
+              login(this.ruleForm2.account, this.ruleForm2.checkPass).then(msg => {
+                  debugger;
+                  this.logining = false;
+                  console.log(msg);
+                  _this.$router.push('/blogs');
+              }).catch(error => {
+                  debugger;
+                  console.log(error);
+                  this.logining = false
+              })
           } else {
             console.log('error submit!!');
             return false;
