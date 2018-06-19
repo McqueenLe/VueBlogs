@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
-// import store from '@/store'
+import store from '../store/index'
 import { getToken } from './auth'
 
 // create an axios instance
@@ -9,21 +9,33 @@ const tokenPreffix = 'Bearer '
 const prod = require('../../config/prod.env')
 const service = axios.create({
     baseURL: prod.BASE_URL, // api的base_url
-    timeout: 20000, // request timeout
-    headers: {'Access-Control-Allow-Origin':' *', 'Access-Control-Allow-Methods':'OPTIONS, GET, POST',
-        'Access-Control-Allow-Headers':'x-requested-with', 'Access-Control-Max-Age':'86400'}
+    timeout: 50000, // request timeout
+    headers: {
+        // 'Access-Control-Allow-Origin':' *',
+        // 'Access-Control-Allow-Methods':'OPTIONS, GET, POST',
+        // 'Access-Control-Allow-Headers':'x-requested-with',
+        // 'Access-Control-Max-Age':'86400'
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
 })
 
 // request interceptor
 service.interceptors.request.use(config => {
-    // if (store.getters.token) {
-    //     config.headers['Authorization'] = tokenPreffix + getToken() // 让每个请求携带token-- ['Authorization']为自定义key 请根据实际情况自行修改
-    // }
-    config.data = qs.stringify(config.data)
-    return config
+    debugger;
+    if (config.data) {
+        config.data = qs.stringify(config.data);
+    }else if(config.token) {
+        config.headers['Authorization'] = tokenPreffix + config.data.token; // 让每个请求携带token-- ['Authorization']为自定义key 请根据实际情况自行修改
+    } else if(config.params) {
+        config.data = qs.stringify(config.params);
+    } else if(config.params.token) {
+        config.headers['Authorization'] = tokenPreffix + config.params.token;
+    }
+    config.params = null;
+    return config;
 }, error => {
-    console.log(error) // for debug
-    Promise.reject(error)
+    console.log(error); // for debug
+    Promise.reject(error);
 })
 
 // respone interceptor
@@ -39,19 +51,33 @@ service.interceptors.response.use(
             cosole.log('respnse is null');
             return;
         }
-        Message({
-            message: res.message,
-            type: 'error',
-            duration: 3 * 1000
-        })
          if(res.code == 200) { // 接口返回成功
+             Message({
+                 message: res.message,
+                 type: 'success',
+                 duration: 3 * 1000
+             })
             return response;
-        } else { // 接口返回失败
+        } else if (res.code === 405) {
+             MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
+                 confirmButtonText: '重新登录',
+                 cancelButtonText: '取消',
+                 type: 'warning'
+             }).then(() => {
+                 store.dispatch('FedLogOut').then(() => {
+                     location.reload()// 为了重新实例化vue-router对象 避免bug
+                 })
+             })
+         } else { // 接口返回失败
+             Message({
+                 message: res.message,
+                 type: 'error',
+                 duration: 3 * 1000
+             })
             console.log(res);
          }
     },
     error => {
-        debugger;
         console.log('err' + error)// for debug
         Message({
             message: error.message,

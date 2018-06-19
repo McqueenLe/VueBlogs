@@ -1,16 +1,16 @@
 <template>
     <el-container>
         <el-main>
-            <el-row>
-                <el-upload
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        list-type="picture-card"
-                        :on-preview="handlePictureCardPreview"
-                        :on-remove="handleRemove"
-                        style="margin-top: 20px">
-                    <i class="el-icon-plus"></i>
-                </el-upload>
-            </el-row>
+            <!--<el-row>-->
+                <!--<el-upload-->
+                        <!--action="https://jsonplaceholder.typicode.com/posts/"-->
+                        <!--list-type="picture-card"-->
+                        <!--:on-preview="handlePictureCardPreview"-->
+                        <!--:on-remove="handleRemove"-->
+                        <!--style="margin-top: 20px">-->
+                    <!--<i class="el-icon-plus"></i>-->
+                <!--</el-upload>-->
+            <!--</el-row>-->
 
             <el-dialog :visible.sync="dialogVisible">
                 <img width="100%" :src="dialogImageUrl" alt="">
@@ -19,7 +19,7 @@
             <el-input clearable type="text" v-model="blog.title" placeholder="请输入标题"></el-input>
 
             <!--<el-input type="textarea" style="margin-top: 20px" v-model="blog.detail" placeholder="请输入正文" :rows="10"></el-input>-->
-            <editor :value="富文本编辑器" ></editor>
+            <editor :value="富文本编辑器" v-model="blog.detail"></editor>
 
             <el-input type="text" v-model="blog.author" placeholder="请输入作者"></el-input>
 
@@ -32,6 +32,7 @@
 
 <script>
     import editor from '../common/Editor'
+    import NProgress from 'nprogress'
     export default {
         name: "add-blog",
         data() {
@@ -75,7 +76,12 @@
                 this.dialogVisible = true;
             },
             addBlog() {
-                this.$router.push({ name:'博客列表', path: '/blogs', params: { blog: this.blog }})
+                NProgress.start();
+                this.$store.dispatch('AddBlog', this.blog).then(res => {
+                    NProgress.done();
+                }).catch(error => {
+                    NProgress.done();
+                })
             }
         }
     }

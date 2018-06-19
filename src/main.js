@@ -5,14 +5,14 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 //import './assets/theme/theme-green/index.css'
 import VueRouter from 'vue-router'
-import store from './vuex/store'
+import store from './store/index'
 import Vuex from 'vuex'
-//import NProgress from 'nprogress'
-//import 'nprogress/nprogress.css'
+import NProgress from 'nprogress'
 import routes from './routes'
 // import Mock from './mock'
 // Mock.bootstrap();
 import 'font-awesome/css/font-awesome.min.css'
+import { getToken, setToken, removeToken } from './api/auth'
 
 Vue.use(ElementUI)
 Vue.use(VueRouter)
@@ -32,21 +32,18 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  //NProgress.start();
-  // if (to.path == '/login') {
-  //   sessionStorage.removeItem('user');
-  // }
-  // let user = JSON.parse(sessionStorage.getItem('user'));
-  // if (!user && to.path != '/login') {
-  //   next({ path: '/login' })
-  // } else {
+  NProgress.start();
+  const token = getToken();
+  if (!token && to.path != '/login') {
+    next({ path: '/login' })
+  } else {
     next()
-  // }
+  }
 })
 
-//router.afterEach(transition => {
-//NProgress.done();
-//});
+router.afterEach(transition => {
+  NProgress.done();
+});
 
 new Vue({
   //el: '#app',
