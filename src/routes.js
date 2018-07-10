@@ -9,6 +9,9 @@ import AddBlog from './views/blogs/AddBlog.vue'
 import BlogsManage from './views/blogs/BlogsManage'
 import Publish from './views/blogs/Publish'
 import echarts from './views/charts/echarts.vue'
+import Preview from './views/blogs/Preview'
+import UpdateBlog from './views/blogs/UpdateBlog'
+import ChannelSetting from './views/management/ChannelSetting'
 
 let routes = [
     {
@@ -27,9 +30,10 @@ let routes = [
     {
         path: '/',
         component: Home,
-        name: '个人管理',
+        name: '设置管理',
         iconCls: 'fa fa-user-circle-o',//图标样式class
         children: [
+            { path: '/channel', component: ChannelSetting, name: '频道管理'},
             { path: '/main', component: Main, name: '主页', hidden: true },
             { path: '/table', component: Table, name: 'Table' },
             { path: '/form', component: Form, name: 'Form' },
@@ -56,6 +60,18 @@ let routes = [
                 path: '/publish',
                 component: Publish,
                 name: '审核发布'
+            },
+            {
+                path:'/preview',
+                component: Preview,
+                name: '预览博客',
+                hidden: true
+            },
+            {
+                path:'/updateBlog',
+                component: UpdateBlog,
+                name: '修改博客',
+                hidden: true
             }
         ]
     },

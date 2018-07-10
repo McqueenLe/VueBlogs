@@ -1,5 +1,5 @@
 import { getToken, setToken, removeToken } from '../../api/auth'
-import { getBlogList, delBlog, updateBlog, addBlog } from "../../api/api";
+import {getBlogList, delBlog, updateBlog, addBlog, publishBlog, uploadFile} from "../../api/api";
 
 const blog = {
     state: {
@@ -74,8 +74,45 @@ const blog = {
          */
         UpdateBlogById({ commit }, params) {
             return new Promise((resolve, reject) => {
+                debugger;
                 const token = getToken();
                 updateBlog(token, params).then((res) => {
+                    resolve(res)
+                }).catch(error => {
+                    reject(error)
+                })
+            })
+        },
+
+        /**
+         * 发布文章博客
+         * @param commit
+         * @param params
+         * @returns {Promise<any>}
+         * @constructor
+         */
+        PublishBlog({ commit }, params) {
+            return new Promise((resolve, reject) => {
+                const token = getToken();
+                publishBlog(token, params).then((res) => {
+                    resolve(res)
+                }).catch(error => {
+                    reject(error)
+                })
+            })
+        },
+
+        /**
+         * 上传图片
+         * @param commit
+         * @param params
+         * @returns {Promise<any>}
+         * @constructor
+         */
+        UploadImg({ commit }, params) {
+            return new Promise((resolve, reject) => {
+                const token = getToken();
+                uploadFile(token, params).then(res => {
                     resolve(res)
                 }).catch(error => {
                     reject(error)

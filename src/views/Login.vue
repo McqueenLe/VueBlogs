@@ -24,8 +24,6 @@
 </template>
 
 <script>
-  import { login, requestLogin } from '../api/api';
-  //import NProgress from 'nprogress'
   export default {
     data() {
       return {
@@ -56,7 +54,6 @@
         this.$refs.loginForm.validate((valid) => {
           if (valid) {
             this.logining = true;
-            //NProgress.start();
             this.$store.dispatch('Login', this.loginForm).then(msg => {
                 this.logining = false
                 _this.$router.push('/blogs');

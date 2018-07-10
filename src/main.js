@@ -1,4 +1,3 @@
-import babelpolyfill from 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
@@ -17,15 +16,6 @@ import { getToken, setToken, removeToken } from './api/auth'
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(Vuex)
-
-//NProgress.configure({ showSpinner: false });
-// app.all('*', function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
-//     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-//     next();
-// });
-
 
 const router = new VueRouter({
   routes
@@ -46,11 +36,8 @@ router.afterEach(transition => {
 });
 
 new Vue({
-  //el: '#app',
-  //template: '<App/>',
   router,
   store,
-  //components: { App }
   render: h => h(App)
 }).$mount('#app')
 

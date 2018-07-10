@@ -21,28 +21,6 @@ export function login(username, password) {
     })
 }
 
-export function getInfo(token) {
-    return request({
-        url: '/user/info',
-        method: 'get',
-        params: { token }
-    })
-}
-
-export function logout() {
-    return request({
-        url: '/login/logout',
-        method: 'post'
-    })
-}
-
-export function getCaptcha() {
-    return request({
-        url: '/login/captcha',
-        method: 'get'
-    })
-}
-
 /**
  * 获取博客文章列表
  * @param param
@@ -70,10 +48,13 @@ export function addBlog(token, param) {
     return fetch({
         url: '/api/flow/auth/blog/addBlog',
         method: 'post',
-        params: {
+        data: {
             title: param.title,
             detail: param.detail,
-            author: param.author
+            author: param.author,
+            headUrl: param.headUrl,
+            channelId: param.channelId,
+            keyWord: param.keyWord
         }
     })
 }
@@ -105,12 +86,86 @@ export function updateBlog(token, param) {
     return fetch({
         url: '/api/flow/auth/blog/updateBlog',
         method: 'post',
-        params: {
-            id: param.id,
+        data: {
+            articleId: param.articleId,
             title: param.title,
-            detail: param.detail
+            detail: param.detail,
+            headUrl: param.headUrl,
+            author: param.author
         }
     })
+}
+
+/**
+ * 发布文章
+ * @param token
+ * @param param
+ * @returns {*}
+ */
+export function publishBlog(token, param) {
+    return fetch({
+        url: '/api/flow/auth/blog/publishBlog',
+        method: 'post',
+        params: {
+            ids: param.ids
+        }
+    })
+}
+
+/**
+ * 图片上传
+ * @param token
+ * @param param
+ * @returns {*}
+ */
+export function uploadFile(token, param) {
+    return fetch({
+        url: '/api/flow/auth/blog/uploadImg',
+        method: 'post',
+        params: param
+    })
+}
+
+/**
+ * 获取频道列表
+ * @param token
+ * @param param
+ * @returns {*}
+ */
+export function getChannels(token, param) {
+    return fetch({
+        url: '/api/flow/auth/channel/getChannels',
+        method: 'get',
+        params: param
+    })
+}
+
+/**
+ * 添加频道
+ * @param token
+ * @param param
+ * @returns {*}
+ */
+export function addChannel(token, param) {
+    return fetch({
+        url: '/api/flow/auth/channel/addChannel',
+        method: 'post',
+        data: param
+    })
+}
+
+/**
+ * 修改频道的状态为已下架
+ * @param token
+ * @param param
+ * @returns {*}
+ */
+export function delChannel(token, param) {
+    return fetch({
+        url: '/api/flow/auth/channel/delChannel',
+        method: 'post',
+        data: param
+    });
 }
 
 export const requestLogin = params => { return axios.post('http://192.168.0.3:8089/api/flow/auth/login', params).then(res => res.data); };

@@ -42,7 +42,7 @@
             <el-table-column label="操作">
                 <template scope="scope">
                     <el-button type="danger" size="small" @click="deleteBlog(scope.$index, scope.row)">删除</el-button>
-                    <el-button type="info" size="small">修改</el-button>
+                    <el-button type="info" size="small" @click="updateBlog(scope.$index, scope.row)">修改</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -81,21 +81,8 @@
                     this.listLoading = false;
                     this.blogs = res.data.data.articles;
                 }).catch(error => {
-                    debugger;
                     this.listLoading = false
                 })
-
-
-                // getBlogList(para).then((res) => {
-                //     debugger;
-                //     this.total = res.data.total;
-                //     this.blogs = [];
-                //     for(var i=0; i<res.data.blogs.length; i++) {
-                //         this.blogs.push(res.data.blogs[i]);
-                //     }
-                //     // this.blogs = res.data.blogs;
-                //     this.listLoading = false;
-                // });
             },
             deleteBlog(index, row) {
                 this.listLoading = true;
@@ -107,10 +94,13 @@
                 })
             },
             updateBlog(index, row) {
-                this.listLoading = true;
-                this.$store.dispatch('', row).then(res => {
-
-                })
+                this.$router.push({name: '修改博客', params: {
+                    articleId:row.articleId,
+                    title: row.title,
+                    detail: row.detail,
+                    imageUrl: row.imageUrl,
+                    author: row.author,
+                    headUrl: row.headUrl}})
             }
         },
         mounted() {
