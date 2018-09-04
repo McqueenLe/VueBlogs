@@ -1,4 +1,5 @@
 <template>
+    <div>
     <el-container>
         <el-main>
             <el-form>
@@ -54,9 +55,8 @@
 
             </el-form>
         </el-main>
-
     </el-container>
-
+    </div>
 </template>
 
 <script>

@@ -12,6 +12,8 @@ import echarts from './views/charts/echarts.vue'
 import Preview from './views/blogs/Preview'
 import UpdateBlog from './views/blogs/UpdateBlog'
 import ChannelSetting from './views/management/ChannelSetting'
+import Admin from './views/system/Admin'
+import GroupManager from './views/system/GroupManager'
 
 let routes = [
     {
@@ -26,11 +28,20 @@ let routes = [
         name: '',
         hidden: true
     },
-    //{ path: '/main', component: Main },
     {
         path: '/',
         component: Home,
-        name: '设置管理',
+        name: '系统管理',
+        iconCls: 'fa fa-user-circle-o',
+        children: [
+            {path: '/group', component: GroupManager, name: '权限组设置'},
+            {path: '/admin', component: Admin, name: '管理员设置'}
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '频道管理',
         iconCls: 'fa fa-user-circle-o',//图标样式class
         children: [
             { path: '/channel', component: ChannelSetting, name: '频道管理'},

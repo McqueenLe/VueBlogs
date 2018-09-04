@@ -1,6 +1,6 @@
 <template>
     <section>
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+        <el-col :span="24" style="padding-bottom: 0px;">
             <el-form :inline="true">
                 <el-form-item>
                     <el-button type="primary" @click="dialogFormVisible = true">添加</el-button>

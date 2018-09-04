@@ -1,4 +1,4 @@
-import { login, logout, getInfo, getCaptcha } from '../../api/api'
+import { login, addAdmin, getAdmins, delAdmin, logout, getInfo, getCaptcha } from '../../api/api'
 import { getToken, setToken, removeToken } from '../../api/auth'
 
 const user = {
@@ -25,7 +25,13 @@ const user = {
   },
 
   actions: {
-    // 登录
+      /**
+       * 登录
+       * @param commit
+       * @param userInfo
+       * @returns {Promise<any>}
+       * @constructor
+       */
     Login({ commit }, userInfo) {
       const username = userInfo.username.toString().trim();
       return new Promise((resolve, reject) => {
@@ -43,6 +49,55 @@ const user = {
         })
       })
     },
+
+      /**
+       * 添加管理员
+       * @param commit
+       * @param admin
+       * @returns {Promise<any>}
+       * @constructor
+       */
+      AddAdmin({commit}, admin) {
+        return new Promise((resolve, reject) => {
+          addAdmin(admin).then(res => {
+            resolve(res);
+          }).catch(error => {
+            reject(error);
+          })
+        });
+      },
+
+      /**
+       * 根据id删除管理员
+       * @param commit
+       * @param admin
+       * @returns {Promise<any>}
+       * @constructor
+       */
+      UpdateAdmin({commit}, admin) {
+        return new Promise((resolve, reject) => {
+            delAdmin(admin.id).then(res => {
+              resolve(res);
+            }).catch(error => {
+              reject(error);
+            })
+        });
+      },
+
+      /**
+       * 获取管理员列表
+       * @returns {Promise<any>}
+       * @constructor
+       */
+      GetAdmins({commit}, params) {
+        return new Promise((resolve, reject) => {
+          getAdmins(params).then(res => {
+            resolve(res);
+          }).catch(error => {
+            reject(error);
+          });
+        })
+      },
 
     // 获取用户信息
     GetInfo({ commit, state }) {

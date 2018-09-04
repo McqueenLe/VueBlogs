@@ -22,6 +22,54 @@ export function login(username, password) {
 }
 
 /**
+ * 添加管理员
+ * @param admin
+ * @returns {*}
+ */
+export function addAdmin(admin) {
+    return fetch({
+        url: '/api/flow/admin/addAdmin',
+        method: 'post',
+        data: {
+            adminName: admin.adminName,
+            password: admin.password,
+            describe: admin.describe
+        }
+    });
+}
+
+/**
+ * 获取管理员列表
+ * @returns {*}
+ */
+export function getAdmins(param) {
+    debugger;
+    return fetch({
+        url: '/api/flow/admin/getAdmins',
+        method: 'get',
+        params: {
+            state: param.state,
+            adminName: param.adminName
+        }
+    });
+}
+
+/**
+ * 通过id删除管理员
+ * @param id
+ * @returns {*}
+ */
+export function delAdmin(id) {
+    return fetch({
+        url: '/api/flow/admin/delAdmin',
+        method: 'post',
+        data: {
+            id: id
+        }
+    });
+}
+
+/**
  * 获取博客文章列表
  * @param param
  * @returns {*}
@@ -165,6 +213,51 @@ export function delChannel(token, param) {
         url: '/api/flow/auth/channel/delChannel',
         method: 'post',
         data: param
+    });
+}
+
+/**
+ * 添加权限管理组
+ * @param token
+ * @param param
+ * @returns {*}
+ */
+export function addGroup(token, param) {
+    return fetch({
+        url: '/api/flow/auth/group/addGroup',
+        method: 'post',
+        data: param
+    });
+}
+
+/**
+ * 获取管理组
+ * @param token
+ * @param param
+ * @returns {*}
+ */
+export function getGroups(token, param) {
+    return fetch({
+        url: '/api/flow/auth/group/getGroups',
+        method: 'get',
+        data: param
+    });
+}
+
+/**
+ * 根据管理组id获取其所有权限
+ * @param token
+ * @param param
+ * @returns {*}
+ */
+export function getPermissionsByGroupId(token, param) {
+    return fetch({
+        url: '/api/flow/auth/permission/getActionGroups',
+        method: 'get',
+        params: {
+            groupId: param.groupId,
+            token: token
+        }
     });
 }
 
